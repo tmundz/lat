@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <cstdint>
+#include <iostream>
 #include <vector>
 class Matrix {
 public:
