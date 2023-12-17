@@ -7,7 +7,8 @@ LAT is a C++ library for basic linear algebra operations, specifically focusing 
 - Basic matrix operations (addition, subtraction, multiplication).
 - Advanced operations (determinant, inverse, etc.).
 
-## Getting Started
+## Current Problem
+zsh kills the program when trying to make matrix that is 100000x100000
 
 ### Prerequisites
 

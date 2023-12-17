@@ -14,3 +14,12 @@ void Matrix::insert(double value, int32_t row_index, int32_t col_index) {
     }
     matrix[col_index][row_index] = value;
 }
+
+void Matrix::display() {
+    for (const auto& row: matrix) {
+        for (const auto& value : row) {
+            std::cout << value << ' ';
+        }
+        std::cout << '\n';
+    }
+}
