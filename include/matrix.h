@@ -6,6 +6,7 @@
 #include <vector>
 class Matrix {
 public:
+std::vector<std::vector<double>> matrix;
   // constructors
   // empty matrix
   Matrix(int32_t rows, int32_t cols);
@@ -14,7 +15,7 @@ public:
          const std::vector<std::vector<double>> &values);
 
   // simple functions
-  void insert(const std::vector<double> &values);
+  void insert(double value, int32_t row_index, int32_t col_index);
   void remove(const uint32_t &value);
   void display();
 
@@ -26,7 +27,7 @@ public:
   double determinant() const;
 
 private:
-  std::vector<std::vector<double>> matrix;
+  
   int32_t totalRows;
   int32_t totalCols;
 };
