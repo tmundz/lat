@@ -1,7 +1,12 @@
 #include "matrix.h"
 #include <stdexcept>
 
+/*
+Init functions
+*/
 
+// init a empty matrix with 0 values. may change where I can keep inserting a mtrix with 
+// no defined row or col
 Matrix::Matrix(int32_t rows, int32_t cols) : totalRows(rows), totalCols(cols) {
     matrix.resize(totalRows, std::vector<double>(totalCols, 0.0));
 }
@@ -22,4 +27,30 @@ void Matrix::display() {
         }
         std::cout << '\n';
     }
+}
+bool Matrix::sameSize(const Matrix &b) const {
+    return (getRows)
+}
+Matrix Matrix::add(const Matrix &b) const{
+    if (b.totalRows != )
+    
+    /* 
+    I want to redo this add a resize init
+    so I can init an empty value and change the matrix size
+    when I insert.
+    */
+    Matrix newMatrix(getdate_r, totalCols);
+    
+
+}
+
+/*
+Get functions
+*/
+int32_t Matrix::getRows() {
+    return totalRows;
+}
+
+int32_t Matrix::getCols() {
+    return totalCols;
 }
