@@ -17,27 +17,30 @@ public:
   void insert(double value, int32_t row_index, int32_t col_index);
   void remove(const uint32_t &value);
   void display();
-  bool sameSize(const Matrix &b) const
+
   // matrix functions
 
   /*
     Takes in a second matrix as a param will not modify
     this function will return the resulting matrix.
   */
-  Matrix add(const Matrix &b) const;
-  Matrix sub(const Matrix &b) const;
+  Matrix add(Matrix &b);
+  Matrix sub(Matrix &b);
   Matrix Multiply(const Matrix &b) const;
 
   double determinant() const;
 
-  //get functions
+  // get functions
   int32_t getRows();
   int32_t getCols();
+  double getVal(int row, int col);
 
 private:
   std::vector<std::vector<double>> matrix;
   int32_t totalRows;
   int32_t totalCols;
+
+  bool sameSize(const Matrix &b) const;
 };
 
 #endif

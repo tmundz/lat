@@ -1,0 +1,6 @@
+# Ignore build artifacts
+build/
+
+# Ignore VSCode settings
+.vscode/
+
