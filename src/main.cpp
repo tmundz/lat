@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include <chrono>
+#include <mpi.h>
 #include <random>
 
 // create a random num by using the current time to generate the seed for it
@@ -30,6 +31,17 @@ Matrix genMatrix(int32_t rows, int32_t cols) {
 }
 
 int main() {
+  MPI_Init(NULL, NULL);
+  int world_size;
+  MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+  // Get the rank of the process
+  int world_rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+  // Get the name of the processor
+  char processor_name[MPI_MAX_PROCESSOR_NAME];
+  int name_len;
+  MPI_Get_processor_name(processor_name, &name_len);
   Matrix m1 = genMatrix(2, 2);
   Matrix m2 = genMatrix(2, 2);
   m1.display();
@@ -44,4 +56,11 @@ int main() {
   Matrix m4 = m1.sub(m2);
   m4.display();
   std::cout << std::endl;
+
+  // Print off a hello world message
+  printf("Hello world from processor %s, rank %d out of %d processors\n",
+         processor_name, world_rank, world_size);
+
+  // Finalize the MPI environment.
+  MPI_Finalize();
 }

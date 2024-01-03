@@ -28,6 +28,12 @@ public:
   Matrix sub(Matrix &b);
   Matrix Multiply(const Matrix &b) const;
 
+  /*
+  To find the determinant of A where A is NxN
+  recursivly break down the matrix until the mtrix is a 2x2 
+  find the determinant of that and multiply it by a then add 
+  it to the total.
+  */
   double determinant() const;
 
   // get functions

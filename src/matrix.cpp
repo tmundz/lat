@@ -84,6 +84,23 @@ Matrix Matrix::sub(Matrix &b) {
   return sumMatrix;
 }
 
+double Matrix::determinant() const{
+  if (totalRows != totalCols) {
+     std::cerr << "Matrix A and Matrix B are different sizes returning a zeroed "
+                 "matrix the same size as A"
+              << std::endl;
+    return -1;
+  }
+
+  // Base case 1
+
+  // Base case 2
+
+  // operations
+
+  // recursive call
+}
+
 /*
 Get Operations
 */
