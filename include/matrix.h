@@ -9,9 +9,9 @@ public:
   // constructors
   // empty matrix
   Matrix(int32_t rows, int32_t cols);
-  // predefined matrix
-  Matrix(int32_t rows, int32_t cols,
-         const std::vector<std::vector<double>> &values);
+
+  // predefined matrix unknown rows and cols
+  Matrix(const std::vector<std::vector<double>>& tempMat);
 
   // simple functions
   void insert(double value, int32_t row_index, int32_t col_index);

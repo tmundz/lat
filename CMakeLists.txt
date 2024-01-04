@@ -20,7 +20,7 @@ add_subdirectory(external)
 add_executable(lat ${SOURCES})
 
 # Link external libraries if needed
-target_link_libraries(lat ${MPI_LIBRARIES})
+target_link_libraries(lat PRIVATE ${MPI_LIBRARIES} Matrix)
 
 # Link MPI
 if(MPI_COMPILE_FLAGS)
@@ -30,3 +30,9 @@ endif()
 if(MPI_LINK_FLAGS)
   set_target_properties(lat PROPERTIES LINK_FLAGS "${MPI_LINK_FLAGS}")
 endif()
+
+# Add testing support
+enable_testing()
+
+# Add a target for unit tests
+add_subdirectory(tests)
