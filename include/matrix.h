@@ -18,15 +18,26 @@ public:
   void remove(const uint32_t &value);
   void display();
 
-  // matrix functions
-
   /*
-    Takes in a second matrix as a param will not modify
-    this function will return the resulting matrix.
+    Purpose: Adds two Matrices together
+    Return: returns the new matrix
+    Time Complexity: O(n^2)
   */
   Matrix add(Matrix &b);
+
+  /*
+    Purpose: Subtracts two Matrices together
+    Return: Returns the new matrix
+    Time Complexity: O(n^2)
+  */
   Matrix sub(Matrix &b);
-  Matrix Multiply(const Matrix &b) const;
+
+  /*
+    Purpose: Multiplies two Matrices together
+    Return: Returns the new matrix
+    Time Complexity: 
+  */
+  Matrix Multiply(const Matrix &b);
 
   /*
   To find the determinant of A where A is NxN
@@ -36,17 +47,32 @@ public:
   */
   double determinant() const;
 
+  bool sameSize(const Matrix &b) const;
+
   // get functions
-  int32_t getRows();
-  int32_t getCols();
-  double getVal(int row, int col);
+  int32_t getRows() const;
+  int32_t getCols() const;
+  double getVal(int row, int col) const;
 
 private:
   std::vector<std::vector<double>> matrix;
   int32_t totalRows;
   int32_t totalCols;
 
-  bool sameSize(const Matrix &b) const;
+ 
 };
+
+/*
+    matrix functions
+  */
+
+  // Matrix Comparison
+
+  /*
+    Purpose: Check of the matrices are equal
+    Return: returns a bool
+    Time Complexity: O(n^2)
+  */
+  bool operator==(const Matrix &a, const Matrix &b);
 
 #endif

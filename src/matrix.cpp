@@ -49,6 +49,18 @@ bool Matrix::sameSize(const Matrix &b) const {
 /*
   Matrix Operations
 */
+bool operator==(const Matrix &a, const Matrix &b) {
+    if (!a.sameSize(b))
+        return false;
+    for (int row = 0; row < a.getRows(); row++) {
+      for (int col = 0; col < a.getCols(); col++) {
+        if (a.getVal(row, col) != b.getVal(row, col))
+            return false;
+    }
+  }
+  return true;
+}
+
 Matrix Matrix::add(Matrix &b) {
   /*
    I want to redo this add a resize init
@@ -115,7 +127,7 @@ double Matrix::determinant() const{
 /*
 Get Operations
 */
-double Matrix::getVal(int row, int col) { return matrix[row][col]; }
-int32_t Matrix::getRows() { return totalRows; }
-int32_t Matrix::getCols() { return totalCols; }
+double Matrix::getVal(int row, int col) const { return matrix[row][col]; }
+int32_t Matrix::getRows() const { return totalRows; }
+int32_t Matrix::getCols() const { return totalCols; }
 
