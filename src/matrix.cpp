@@ -1,13 +1,24 @@
 #include "matrix.h"
 #include <iostream>
-/*
-Init functions
-*/
 
+/*
+Constructors
+*/
 // init a empty matrix with 0 values. may change where I can keep inserting a
-// mtrix with no defined row or col
+// matrix with no defined row or col
 Matrix::Matrix(int32_t rows, int32_t cols) : totalRows(rows), totalCols(cols) {
   matrix.resize(totalRows, std::vector<double>(totalCols, 0.0));
+}
+
+// init a matrix with with values.
+// no rows need to find the number of rows and cols manually
+Matrix::Matrix(const std::vector<std::vector<double>>& tempMat) : totalRows(tempMat.size()), totalCols(tempMat.empty() ? 0: tempMat[0].size()) {
+  for (const auto& row: tempMat) {
+    if (row.size() != totalCols) {
+        throw std::invalid_argument("invalid matrix columns and rows are not the same throughout.");
+    }
+  }
+  matrix = tempMat;
 }
 
 // insert a single value at an index
@@ -38,6 +49,18 @@ bool Matrix::sameSize(const Matrix &b) const {
 /*
   Matrix Operations
 */
+bool operator==(const Matrix &a, const Matrix &b) {
+    if (!a.sameSize(b))
+        return false;
+    for (int row = 0; row < a.getRows(); row++) {
+      for (int col = 0; col < a.getCols(); col++) {
+        if (a.getVal(row, col) != b.getVal(row, col))
+            return false;
+    }
+  }
+  return true;
+}
+
 Matrix Matrix::add(Matrix &b) {
   /*
    I want to redo this add a resize init
@@ -104,4 +127,7 @@ double Matrix::determinant() const{
 /*
 Get Operations
 */
-double Matrix::getVal(int row, int col) { return matrix[row][col]; }
+double Matrix::getVal(int row, int col) const { return matrix[row][col]; }
+int32_t Matrix::getRows() const { return totalRows; }
+int32_t Matrix::getCols() const { return totalCols; }
+
