@@ -34,11 +34,9 @@ void Matrix::display() {
 
   for (int row = 0; row < totalRows; row++) {
     for (int col = 0; col < totalCols; col++) {
-      std::cout << row << " " << col << " " << getVal(row, col) << std::endl;
-      std::cout << "\n";
-      // std::cout << matrix[row][col] << ' ';
+      std::cout << matrix[row][col] << ' ';
     }
-    // std::cout << "\n";
+    std::cout << "\n";
   }
 }
 
@@ -62,11 +60,6 @@ bool operator==(const Matrix &a, const Matrix &b) {
 }
 
 Matrix Matrix::add(Matrix &b) {
-  /*
-   I want to redo this add a resize init
-   so I can init an empty value and change the matrix size
-   when I insert.
-   */
   Matrix sumMatrix(totalRows, totalCols);
   if (!sameSize(b)) {
     std::cerr << "Matrix A and Matrix B are different sizes returning a zeroed "
@@ -81,6 +74,7 @@ Matrix Matrix::add(Matrix &b) {
       sumMatrix.insert(val, row, col);
     }
   }
+
   return sumMatrix;
 }
 
@@ -107,21 +101,36 @@ Matrix Matrix::sub(Matrix &b) {
   return sumMatrix;
 }
 
-double Matrix::determinant() const{
+double Matrix::determinant() {
   if (totalRows != totalCols) {
-     std::cerr << "Matrix A and Matrix B are different sizes returning a zeroed "
-                 "matrix the same size as A"
-              << std::endl;
-    return -1;
+     throw std::invalid_argument("Determinant undefined for non-square matrices.");
   }
 
   // Base case 1
-
+  if (totalRows == 1 && totalCols == 1)
+    return matrix[0][0];
   // Base case 2
-
+  if (totalRows == 2 && totalCols == 2)
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];  
   // operations
-
+  double det = 0.0;
   // recursive call
+  
+  for (int j= 0; j < totalCols; j++) {
+    //create a submatrix for the minor of elements (0,j)
+    Matrix subMatrix(totalRows - 1, totalCols - 1);
+    for (int subi = 0; subi < totalRows - 1; subi++) {
+      for (int subj = 0; subj < totalCols - 1; subj++) {
+        int sourceRow = subi + 1;
+        int sourceCol = subj < j ? subj: subj + 1;
+        subMatrix.insert(matrix[sourceRow][sourceCol], subi, subj);
+      }
+    }
+    double subDet = subMatrix.determinant();
+
+    det += (j % 2 == 0 ? 1 : -1) * matrix[0][j] * subDet;
+  }
+  return det;
 }
 
 /*

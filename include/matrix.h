@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
+
 class Matrix {
 public:
   // constructors
@@ -45,7 +46,7 @@ public:
   find the determinant of that and multiply it by a then add 
   it to the total.
   */
-  double determinant() const;
+  double determinant();
 
   bool sameSize(const Matrix &b) const;
 

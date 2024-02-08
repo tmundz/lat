@@ -4,34 +4,23 @@ project(LAT CXX)
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 
-# Find MPI package
-find_package(MPI REQUIRED)
-
-# Include directories, including MPI
-include_directories(include ${MPI_INCLUDE_PATH})
+# Specify the include directory
+include_directories(include/)
 
 # Source files
 set(SOURCES src/main.cpp src/matrix.cpp)
 
+# Create executable
+add_executable(lat ${SOURCES})
+# Add testing support
+
 # Add subdirectories with code
 add_subdirectory(external)
 
-# Create executable
-add_executable(lat ${SOURCES})
-
 # Link external libraries if needed
-target_link_libraries(lat PRIVATE ${MPI_LIBRARIES} Matrix)
+target_link_libraries(lat PRIVATE Matrix)
 
-# Link MPI
-if(MPI_COMPILE_FLAGS)
-  set_target_properties(lat PROPERTIES COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
-endif()
 
-if(MPI_LINK_FLAGS)
-  set_target_properties(lat PROPERTIES LINK_FLAGS "${MPI_LINK_FLAGS}")
-endif()
-
-# Add testing support
 enable_testing()
 
 # Add a target for unit tests
