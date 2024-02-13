@@ -3,7 +3,7 @@
 #include <random>
 
 // create a random num by using the current time to generate the seed for it
-double randomNum() {
+double static randomNum() {
   // use the high resolution clock to generate a seed for the random num
   auto seed =
       std::chrono::high_resolution_clock::now().time_since_epoch().count();
