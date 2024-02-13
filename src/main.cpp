@@ -20,20 +20,22 @@ double randomNum() {
 }
 
 // create generate matrices
-Matrix genMatrix(int32_t rows, int32_t cols) {
-  Matrix m(rows, cols);
+Matrix<double> static genMatrix(int32_t rows, int32_t cols) {
+  Matrix<double> m(rows, cols);
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < cols; j++)
-      m.insert(randomNum(), i, j);
+      m(i, j) = randomNum();
   }
   return m;
 }
 
 int main() {
-  Matrix m1 = genMatrix(2, 2);
-  Matrix m2 = genMatrix(2, 2);
+  Matrix<double> m1 = genMatrix(2, 2);
+  Matrix<double> m2 = genMatrix(2, 2);
   std::vector<std::vector<double>> values2 = {{1.0, 2.0, 3.0}, {4.0, 3.0, 6.0}, {7.0, 8.0, 10.0}};
-  Matrix m4(values2);
+
+  Matrix<double> temp(3, 3, {1.0, 2.0, 3.0, 4.0, 3.0, 6.0, 7.0, 8.0, 10.0});
+  Matrix<double> m4(temp);
   
   m4.display();
   printf("\n");

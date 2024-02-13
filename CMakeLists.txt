@@ -11,7 +11,7 @@ include_directories(include/)
 set(SOURCES src/main.cpp src/matrix.cpp)
 
 # Create executable
-add_executable(lat ${SOURCES})
+add_executable(lat ${SOURCES} "include/utils.h")
 # Add testing support
 
 # Add subdirectories with code
