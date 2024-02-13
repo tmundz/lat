@@ -36,17 +36,6 @@ Matrix<T>::Matrix(const Matrix<T>& other) :
   matrix = tempMat;
 }
 
-template<typename T>
-void Matrix<T>::display() {
-
-  for (int32_t row = 0; row < m_rows; row++) {
-    for (int32_t col = 0; col < m_cols; col++) {
-      std::cout << m_data[row * col + col] << ' ';
-    }
-    std::cout << "\n";
-  }
-}
-
 /*
   Matrix Operations
 */
@@ -61,6 +50,17 @@ bool operator==(const Matrix<T>& a, const Matrix<T>& b) {
     }
   }
   return true;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix) {
+    for (int32_t row = 0; row < matrix.getRows(); row++) {
+        for (int32_t col = 0; col < matrix.getCols(); col++) {
+            os << matrix(row, col) << ' ';
+        }
+        os << "\n";
+    }
+    return os;
 }
 
 template <typename T>
@@ -110,27 +110,27 @@ double Matrix<T>::determinant() {
 
   // Base case 1
   if (m_rows == 1 && m_cols == 1)
-    return matrix[0][0];
+    return matrix[0];
   // Base case 2
   if (m_rows == 2 && m_cols == 2)
-    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];  
+    return matrix[0] * matrix[1] - matrix[1] * matrix[1];  
   // operations
   double det = 0.0;
   // recursive call
   
   for (int32_t j= 0; j < m_cols; j++) {
     //create a submatrix for the minor of elements (0,j)
-    Matrix subMatrix(m_rows - 1, m_cols - 1);
+    Matrix<T> subMatrix(m_rows - 1, m_cols - 1);
     for (int32_t subi = 0; subi < m_rows - 1; subi++) {
       for (int32_t subj = 0; subj < m_cols - 1; subj++) {
         int32_t sourceRow = subi + 1;
         int32_t sourceCol = subj < j ? subj: subj + 1;
-        subMatrix.insert(matrix[sourceRow][sourceCol], subi, subj);
+        subMatrix(subi, subj) = matrix[sourceRow * sourceCol + sourceCol];
       }
     }
     double subDet = subMatrix.determinant();
 
-    det += (j % 2 == 0 ? 1 : -1) * matrix[0][j] * subDet;
+    det += (j % 2 == 0 ? 1 : -1) * matrix[j] * subDet;
   }
   return det;
 }

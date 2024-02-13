@@ -11,15 +11,10 @@ public:
   // constructors
   // empty matrix
   Matrix(int32_t rows, int32_t cols);
-
   Matrix(int32_t rows, int32_t cols, const std::vector<T>& data);
 
   // predefined matrix unknown rows and cols (co-py constructor)
   Matrix(const Matrix<T>& other);
-
-  // simple functions
-  void remove(const uint32_t &value);
-  void display();
 
   /*
   To find the determinant of A where A is NxN
@@ -62,6 +57,12 @@ Time Complexity: O(n^2)
   template <typename T>
   bool operator==(const Matrix<T> &a, const Matrix<T> &b);
 
+/*
+Purpose: prints a matrix
+Return: returns a stream
+*/
+  template<typename T>
+  std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix);
 /*
 Purpose: Adds two matrices of the same size
 Return: returns resulting matrix
