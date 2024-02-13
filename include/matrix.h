@@ -34,7 +34,7 @@ public:
 
   // access operator
   double& operator()(uint32_t row, uint32_t col) {
-      return matrix[row][col];
+      return matrix[row * col + col];
   }
 
 private:
