@@ -5,40 +5,16 @@
 #include <iostream>
 #include <vector>
 
+template <typename T = double>
 class Matrix {
 public:
   // constructors
   // empty matrix
   Matrix(int32_t rows, int32_t cols);
+  Matrix(int32_t rows, int32_t cols, const std::vector<T>& data);
 
-  // predefined matrix unknown rows and cols
-  Matrix(const std::vector<std::vector<double>>& tempMat);
-
-  // simple functions
-  void insert(double value, int32_t row_index, int32_t col_index);
-  void remove(const uint32_t &value);
-  void display();
-
-  /*
-    Purpose: Adds two Matrices together
-    Return: returns the new matrix
-    Time Complexity: O(n^2)
-  */
-  Matrix add(Matrix &b);
-
-  /*
-    Purpose: Subtracts two Matrices together
-    Return: Returns the new matrix
-    Time Complexity: O(n^2)
-  */
-  Matrix sub(Matrix &b);
-
-  /*
-    Purpose: Multiplies two Matrices together
-    Return: Returns the new matrix
-    Time Complexity: 
-  */
-  Matrix Multiply(const Matrix &b);
+  // predefined matrix unknown rows and cols (co-py constructor)
+  Matrix(const Matrix<T>& other);
 
   /*
   To find the determinant of A where A is NxN
@@ -48,19 +24,23 @@ public:
   */
   double determinant();
 
-  bool sameSize(const Matrix &b) const;
+  [inline] bool sameSize(const Matrix<T>& b) const { return m_data.size() == b.getData().size() };
+  [inline] bool sameDim(const Matrix<T>& b) const { return m_rows == b.getRows() && m_cols == b.getCols() };
 
   // get functions
-  int32_t getRows() const;
-  int32_t getCols() const;
-  double getVal(int row, int col) const;
+  [inline] int32_t getRows() const { return m_rows };
+  [inline] int32_t getCols() const { return m_cols };
+  [inline] std::vector<T>& getData() const { return m_data };
+
+  // access operator
+  double& operator()(uint32_t row, uint32_t col) {
+      return matrix[row * col + col];
+  }
 
 private:
-  std::vector<std::vector<double>> matrix;
-  int32_t totalRows;
-  int32_t totalCols;
-
- 
+    std::vector<T> m_data;
+    int32_t m_rows;
+    int32_t m_cols;
 };
 
 /*
@@ -69,11 +49,41 @@ private:
 
   // Matrix Comparison
 
-  /*
-    Purpose: Check of the matrices are equal
-    Return: returns a bool
-    Time Complexity: O(n^2)
-  */
-  bool operator==(const Matrix &a, const Matrix &b);
+/*
+Purpose: Check of the matrices are equal
+Return: returns a bool
+Time Complexity: O(n^2)
+*/
+  template <typename T>
+  bool operator==(const Matrix<T> &a, const Matrix<T> &b);
 
+/*
+Purpose: prints a matrix
+Return: returns a stream
+*/
+  template<typename T>
+  std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix);
+/*
+Purpose: Adds two matrices of the same size
+Return: returns resulting matrix
+Time Complexity: O(n X m)
+*/
+  template <typename T>
+  Matrix<T> operator+(const Matrix<T> &a, const Matrix<T> &b);
+
+/*
+Purpose: Subtracts two matrices of the same size
+Return: returns resulting matrix
+Time Complexity: O(n X m)
+*/
+  template <typename T>
+  Matrix<T> operator-(const Matrix<T>& a, const Matrix<T>& b);
+
+/*
+Purpose: Subtracts two matrices of the same size
+Return: returns resulting matrix
+Time Complexity: O(n X m)
+*/
+  template <typename T>
+  Matrix<T> operator*(const Matrix<T>& a, const Matrix<T>& b);
 #endif
